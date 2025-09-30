@@ -8,6 +8,10 @@ class NeuralGridLanding {
         this.mainContainer = document.querySelector('.main-container');
         this.scrollArrows = document.querySelectorAll('.scroll-arrow');
         this.horizontalContainers = document.querySelectorAll('.horizontal-scroll-container');
+        this.horizontalNavLeft = document.querySelectorAll('.horizontal-nav-left');
+        this.horizontalNavRight = document.querySelectorAll('.horizontal-nav-right');
+        this.isScrolling = false;
+        this.scrollTimeout = null;
         
         this.init();
     }
@@ -17,6 +21,7 @@ class NeuralGridLanding {
         this.updateProgress();
         this.setupScrollSnap();
         this.setupAnimations();
+        this.updateArrowVisibility();
     }
 
     setupEventListeners() {
@@ -35,10 +40,32 @@ class NeuralGridLanding {
             });
         });
 
-        // Vertical scroll detection
+        // Horizontal navigation arrows
+        this.horizontalNavLeft.forEach((arrow, index) => {
+            arrow.addEventListener('click', () => {
+                this.scrollHorizontalLeft();
+            });
+        });
+
+        this.horizontalNavRight.forEach((arrow, index) => {
+            arrow.addEventListener('click', () => {
+                this.scrollHorizontalRight();
+            });
+        });
+
+        // Vertical scroll detection with throttling and snapping
         window.addEventListener('scroll', () => {
-            this.updateCurrentSection();
-            this.updateProgress();
+            if (!this.isScrolling) {
+                this.isScrolling = true;
+                clearTimeout(this.scrollTimeout);
+                this.scrollTimeout = setTimeout(() => {
+                    this.isScrolling = false;
+                    this.checkScrollSnapping();
+                }, 150);
+                
+                this.updateCurrentSection();
+                this.updateProgress();
+            }
         });
 
         // Horizontal scroll detection for each section
@@ -181,10 +208,17 @@ class NeuralGridLanding {
         if (currentContainer) {
             const containerWidth = currentContainer.clientWidth;
             const currentScroll = currentContainer.scrollLeft;
+            const targetScroll = Math.max(0, currentScroll - containerWidth);
+            
             currentContainer.scrollTo({
-                left: Math.max(0, currentScroll - containerWidth),
+                left: targetScroll,
                 behavior: 'smooth'
             });
+            
+            // Update arrow visibility after scroll
+            setTimeout(() => {
+                this.updateArrowVisibility();
+            }, 300);
         }
     }
 
@@ -194,10 +228,17 @@ class NeuralGridLanding {
             const containerWidth = currentContainer.clientWidth;
             const currentScroll = currentContainer.scrollLeft;
             const maxScroll = currentContainer.scrollWidth - containerWidth;
+            const targetScroll = Math.min(maxScroll, currentScroll + containerWidth);
+            
             currentContainer.scrollTo({
-                left: Math.min(maxScroll, currentScroll + containerWidth),
+                left: targetScroll,
                 behavior: 'smooth'
             });
+            
+            // Update arrow visibility after scroll
+            setTimeout(() => {
+                this.updateArrowVisibility();
+            }, 300);
         }
     }
 
@@ -208,11 +249,58 @@ class NeuralGridLanding {
         this.sections.forEach((section, index) => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionMiddle = sectionTop + (section.offsetHeight / 2);
             
-            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
+            // Check if we're in the middle 50% of the section for snapping
+            if (scrollY >= sectionTop - windowHeight / 4 && scrollY < sectionBottom - windowHeight / 4) {
                 if (index !== this.currentSection) {
                     this.currentSection = index;
                     this.updateActiveNavLink();
+                    this.updateArrowVisibility();
+                }
+            }
+        });
+    }
+
+    updateArrowVisibility() {
+        // Update horizontal arrow visibility based on current section
+        this.horizontalContainers.forEach((container, index) => {
+            const leftArrow = this.horizontalNavLeft[index];
+            const rightArrow = this.horizontalNavRight[index];
+            
+            if (leftArrow && rightArrow) {
+                const scrollLeft = container.scrollLeft;
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                
+                // Show/hide arrows based on scroll position
+                leftArrow.style.display = scrollLeft <= 10 ? 'none' : 'flex';
+                rightArrow.style.display = scrollLeft >= maxScroll - 10 ? 'none' : 'flex';
+            }
+        });
+    }
+
+    checkScrollSnapping() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        this.sections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionMiddle = sectionTop + (section.offsetHeight / 2);
+            
+            // If we're in the middle 50% of a section, snap to it
+            if (scrollY >= sectionTop - windowHeight / 4 && scrollY < sectionBottom - windowHeight / 4) {
+                const distanceFromTop = scrollY - sectionTop;
+                const sectionHeight = section.offsetHeight;
+                const scrollPercentage = distanceFromTop / sectionHeight;
+                
+                // If we've scrolled more than 50% into the section, snap to the next section
+                if (scrollPercentage > 0.5 && index < this.sections.length - 1) {
+                    this.scrollToSection(index + 1);
+                }
+                // If we've scrolled less than 50% into the section, snap to the current section
+                else if (scrollPercentage <= 0.5) {
+                    this.scrollToSection(index);
                 }
             }
         });
