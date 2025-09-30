@@ -7,6 +7,7 @@ class NeuralGridLanding {
         this.progressBar = document.querySelector('.progress-fill');
         this.mainContainer = document.querySelector('.main-container');
         this.scrollArrows = document.querySelectorAll('.scroll-arrow');
+        this.horizontalContainers = document.querySelectorAll('.horizontal-scroll-container');
         
         this.init();
     }
@@ -27,25 +28,36 @@ class NeuralGridLanding {
             });
         });
 
-        // Scroll arrows
+        // Scroll arrows (now for vertical navigation)
         this.scrollArrows.forEach(arrow => {
             arrow.addEventListener('click', () => {
                 this.scrollToNextSection();
             });
         });
 
-        // Horizontal scroll detection
-        this.mainContainer.addEventListener('scroll', () => {
+        // Vertical scroll detection
+        window.addEventListener('scroll', () => {
             this.updateCurrentSection();
             this.updateProgress();
         });
 
+        // Horizontal scroll detection for each section
+        this.horizontalContainers.forEach(container => {
+            container.addEventListener('scroll', () => {
+                this.updateHorizontalProgress(container);
+            });
+        });
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 this.scrollToPreviousSection();
-            } else if (e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
                 this.scrollToNextSection();
+            } else if (e.key === 'ArrowLeft') {
+                this.scrollHorizontalLeft();
+            } else if (e.key === 'ArrowRight') {
+                this.scrollHorizontalRight();
             }
         });
 
@@ -70,13 +82,13 @@ class NeuralGridLanding {
         let startY = 0;
         let isScrolling = false;
 
-        this.mainContainer.addEventListener('touchstart', (e) => {
+        document.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
             isScrolling = false;
         });
 
-        this.mainContainer.addEventListener('touchmove', (e) => {
+        document.addEventListener('touchmove', (e) => {
             if (!isScrolling) {
                 const deltaX = Math.abs(e.touches[0].clientX - startX);
                 const deltaY = Math.abs(e.touches[0].clientY - startY);
@@ -87,13 +99,21 @@ class NeuralGridLanding {
             }
         });
 
-        this.mainContainer.addEventListener('touchend', (e) => {
+        document.addEventListener('touchend', (e) => {
             if (isScrolling) {
                 const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
                 const deltaX = endX - startX;
+                const deltaY = endY - startY;
                 
                 if (Math.abs(deltaX) > 50) {
                     if (deltaX > 0) {
+                        this.scrollHorizontalLeft();
+                    } else {
+                        this.scrollHorizontalRight();
+                    }
+                } else if (Math.abs(deltaY) > 50) {
+                    if (deltaY > 0) {
                         this.scrollToPreviousSection();
                     } else {
                         this.scrollToNextSection();
@@ -134,11 +154,10 @@ class NeuralGridLanding {
         if (sectionIndex >= 0 && sectionIndex < this.sections.length) {
             this.currentSection = sectionIndex;
             const targetSection = this.sections[sectionIndex];
-            const containerWidth = this.mainContainer.clientWidth;
             
-            this.mainContainer.scrollTo({
-                left: sectionIndex * containerWidth,
-                behavior: 'smooth'
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
             
             this.updateActiveNavLink();
@@ -157,15 +176,46 @@ class NeuralGridLanding {
         }
     }
 
-    updateCurrentSection() {
-        const containerWidth = this.mainContainer.clientWidth;
-        const scrollLeft = this.mainContainer.scrollLeft;
-        const newSection = Math.round(scrollLeft / containerWidth);
-        
-        if (newSection !== this.currentSection && newSection >= 0 && newSection < this.sections.length) {
-            this.currentSection = newSection;
-            this.updateActiveNavLink();
+    scrollHorizontalLeft() {
+        const currentContainer = this.horizontalContainers[this.currentSection];
+        if (currentContainer) {
+            const containerWidth = currentContainer.clientWidth;
+            const currentScroll = currentContainer.scrollLeft;
+            currentContainer.scrollTo({
+                left: Math.max(0, currentScroll - containerWidth),
+                behavior: 'smooth'
+            });
         }
+    }
+
+    scrollHorizontalRight() {
+        const currentContainer = this.horizontalContainers[this.currentSection];
+        if (currentContainer) {
+            const containerWidth = currentContainer.clientWidth;
+            const currentScroll = currentContainer.scrollLeft;
+            const maxScroll = currentContainer.scrollWidth - containerWidth;
+            currentContainer.scrollTo({
+                left: Math.min(maxScroll, currentScroll + containerWidth),
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    updateCurrentSection() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        this.sections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
+                if (index !== this.currentSection) {
+                    this.currentSection = index;
+                    this.updateActiveNavLink();
+                }
+            }
+        });
     }
 
     updateActiveNavLink() {
@@ -175,12 +225,21 @@ class NeuralGridLanding {
     }
 
     updateProgress() {
-        const containerWidth = this.mainContainer.clientWidth;
-        const scrollLeft = this.mainContainer.scrollLeft;
-        const maxScroll = this.mainContainer.scrollWidth - containerWidth;
-        const progress = (scrollLeft / maxScroll) * 100;
+        const scrollY = window.scrollY;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollY / documentHeight) * 100;
         
-        this.progressBar.style.width = `${progress}%`;
+        this.progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+
+    updateHorizontalProgress(container) {
+        const containerWidth = container.clientWidth;
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - containerWidth;
+        const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+        
+        // You can add a horizontal progress indicator here if needed
+        console.log(`Horizontal progress: ${progress}%`);
     }
 
     handleFormSubmit(e) {
