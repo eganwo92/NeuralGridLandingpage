@@ -64,6 +64,7 @@ class NeuralGridLanding {
         let scrollEndTime = 0;
         
         window.addEventListener('scroll', () => {
+            console.log('Scroll event detected!');
             scrollStartTime = Date.now();
             
             // Always update current section and progress on scroll
