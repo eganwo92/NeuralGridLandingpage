@@ -153,7 +153,6 @@ body {
     align-items: center;
     justify-content: center;
     scroll-snap-align: start;
-    padding: 0 2rem;
 }
 
 .section:nth-child(2) {
