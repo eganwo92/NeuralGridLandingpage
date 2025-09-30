@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -128,13 +136,14 @@ body {
 /* Horizontal Scroll Containers */
 .horizontal-scroll-container {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .horizontal-scroll-container::-webkit-scrollbar {
@@ -142,13 +151,14 @@ body {
 }
 
 .horizontal-content {
-    min-width: 100vw;
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-snap-align: start;
     padding: 0 2rem;
+    box-sizing: border-box;
 }
 
 .section:nth-child(2) {
