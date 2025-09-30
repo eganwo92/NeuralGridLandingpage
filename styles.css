@@ -572,18 +572,25 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 10%;
     width: 100%;
     box-sizing: border-box;
 }
 
 .content-right {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     padding: 2rem;
     width: 100%;
     box-sizing: border-box;
+}
+
+.content-right-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
 }
 
 .stats-grid {
@@ -1376,6 +1383,10 @@ body {
     
     .content-right {
         padding: 1rem;
+    }
+    
+    .content-right-header {
+        margin-bottom: 1rem;
     }
     
     .homepage-image {
