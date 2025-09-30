@@ -43,13 +43,13 @@ class NeuralGridLanding {
         // Horizontal navigation arrows
         this.horizontalNavLeft.forEach((arrow, index) => {
             arrow.addEventListener('click', () => {
-                this.scrollHorizontalLeft();
+                this.scrollHorizontalLeft(index);
             });
         });
 
         this.horizontalNavRight.forEach((arrow, index) => {
             arrow.addEventListener('click', () => {
-                this.scrollHorizontalRight();
+                this.scrollHorizontalRight(index);
             });
         });
 
@@ -79,9 +79,10 @@ class NeuralGridLanding {
         });
 
         // Horizontal scroll detection for each section
-        this.horizontalContainers.forEach(container => {
+        this.horizontalContainers.forEach((container, index) => {
             container.addEventListener('scroll', () => {
                 this.updateHorizontalProgress(container);
+                this.updateArrowVisibilityForSection(index);
             });
         });
 
@@ -92,9 +93,9 @@ class NeuralGridLanding {
             } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
                 this.scrollToNextSection();
             } else if (e.key === 'ArrowLeft') {
-                this.scrollHorizontalLeft();
+                this.scrollHorizontalLeft(this.currentSection);
             } else if (e.key === 'ArrowRight') {
-                this.scrollHorizontalRight();
+                this.scrollHorizontalRight(this.currentSection);
             }
         });
 
@@ -145,9 +146,9 @@ class NeuralGridLanding {
                 
                 if (Math.abs(deltaX) > 50) {
                     if (deltaX > 0) {
-                        this.scrollHorizontalLeft();
+                        this.scrollHorizontalLeft(this.currentSection);
                     } else {
-                        this.scrollHorizontalRight();
+                        this.scrollHorizontalRight(this.currentSection);
                     }
                 } else if (Math.abs(deltaY) > 50) {
                     if (deltaY > 0) {
@@ -213,14 +214,14 @@ class NeuralGridLanding {
         }
     }
 
-    scrollHorizontalLeft() {
-        const currentContainer = this.horizontalContainers[this.currentSection];
-        if (currentContainer) {
-            const containerWidth = currentContainer.clientWidth;
-            const currentScroll = currentContainer.scrollLeft;
+    scrollHorizontalLeft(sectionIndex = this.currentSection) {
+        const container = this.horizontalContainers[sectionIndex];
+        if (container) {
+            const containerWidth = container.clientWidth;
+            const currentScroll = container.scrollLeft;
             const targetScroll = Math.max(0, currentScroll - containerWidth);
             
-            currentContainer.scrollTo({
+            container.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'
             });
@@ -232,15 +233,15 @@ class NeuralGridLanding {
         }
     }
 
-    scrollHorizontalRight() {
-        const currentContainer = this.horizontalContainers[this.currentSection];
-        if (currentContainer) {
-            const containerWidth = currentContainer.clientWidth;
-            const currentScroll = currentContainer.scrollLeft;
-            const maxScroll = currentContainer.scrollWidth - containerWidth;
+    scrollHorizontalRight(sectionIndex = this.currentSection) {
+        const container = this.horizontalContainers[sectionIndex];
+        if (container) {
+            const containerWidth = container.clientWidth;
+            const currentScroll = container.scrollLeft;
+            const maxScroll = container.scrollWidth - containerWidth;
             const targetScroll = Math.min(maxScroll, currentScroll + containerWidth);
             
-            currentContainer.scrollTo({
+            container.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'
             });
@@ -273,33 +274,38 @@ class NeuralGridLanding {
     }
 
     updateArrowVisibility() {
-        // Update horizontal arrow visibility based on current section
+        // Update horizontal arrow visibility for all sections
         this.horizontalContainers.forEach((container, index) => {
-            const leftArrow = this.horizontalNavLeft[index];
-            const rightArrow = this.horizontalNavRight[index];
-            
-            if (leftArrow && rightArrow) {
-                const scrollLeft = container.scrollLeft;
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                
-                // Show/hide arrows based on scroll position
-                if (scrollLeft <= 10) {
-                    leftArrow.style.opacity = '0.3';
-                    leftArrow.style.pointerEvents = 'none';
-                } else {
-                    leftArrow.style.opacity = '0.7';
-                    leftArrow.style.pointerEvents = 'auto';
-                }
-                
-                if (scrollLeft >= maxScroll - 10) {
-                    rightArrow.style.opacity = '0.3';
-                    rightArrow.style.pointerEvents = 'none';
-                } else {
-                    rightArrow.style.opacity = '0.7';
-                    rightArrow.style.pointerEvents = 'auto';
-                }
-            }
+            this.updateArrowVisibilityForSection(index);
         });
+    }
+
+    updateArrowVisibilityForSection(sectionIndex) {
+        const container = this.horizontalContainers[sectionIndex];
+        const leftArrow = this.horizontalNavLeft[sectionIndex];
+        const rightArrow = this.horizontalNavRight[sectionIndex];
+        
+        if (leftArrow && rightArrow && container) {
+            const scrollLeft = container.scrollLeft;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            
+            // Show/hide arrows based on scroll position
+            if (scrollLeft <= 10) {
+                leftArrow.style.opacity = '0.3';
+                leftArrow.style.pointerEvents = 'none';
+            } else {
+                leftArrow.style.opacity = '0.7';
+                leftArrow.style.pointerEvents = 'auto';
+            }
+            
+            if (scrollLeft >= maxScroll - 10) {
+                rightArrow.style.opacity = '0.3';
+                rightArrow.style.pointerEvents = 'none';
+            } else {
+                rightArrow.style.opacity = '0.7';
+                rightArrow.style.pointerEvents = 'auto';
+            }
+        }
     }
 
     checkScrollSnapping() {
