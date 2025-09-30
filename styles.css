@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
 
 html {
     scroll-behavior: smooth;
@@ -147,6 +155,7 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .horizontal-scroll-container::-webkit-scrollbar {
@@ -161,6 +170,8 @@ body {
     justify-content: center;
     scroll-snap-align: start;
     flex-shrink: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .section:nth-child(2) {

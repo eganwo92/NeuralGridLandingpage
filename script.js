@@ -63,8 +63,6 @@ class NeuralGridLanding {
         const mainContainer = document.querySelector('.main-container');
         
         mainContainer.addEventListener('scrollend', () => {
-            console.log('Scroll snap completed!');
-            console.log('Main container scrollTop:', mainContainer.scrollTop);
             this.updateCurrentSection();
             this.updateProgress();
         });
@@ -263,8 +261,6 @@ class NeuralGridLanding {
         const scrollY = mainContainer.scrollTop;
         const windowHeight = mainContainer.clientHeight;
         
-        console.log(`updateCurrentSection called - scrollY: ${scrollY}, windowHeight: ${windowHeight}`);
-        
         // Find which section is currently at the top of the viewport
         let currentSectionIndex = 0;
         
@@ -272,24 +268,16 @@ class NeuralGridLanding {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
             
-            console.log(`Section ${index}: top=${sectionTop}, bottom=${sectionBottom}, height=${section.offsetHeight}`);
-            
             // Check if this section is currently visible at the top of the viewport
             if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
                 currentSectionIndex = index;
-                console.log(`Section ${index} is currently visible`);
             }
         });
         
-        console.log(`Current section index: ${currentSectionIndex}, stored currentSection: ${this.currentSection}`);
-        
         if (currentSectionIndex !== this.currentSection) {
-            console.log(`Switching from section ${this.currentSection} to section ${currentSectionIndex}`);
             this.currentSection = currentSectionIndex;
             this.updateActiveNavLink();
             this.updateArrowVisibility();
-        } else {
-            console.log('No section change needed');
         }
     }
 
