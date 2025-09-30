@@ -141,7 +141,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 2rem;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 50%, #1e3a1e 100%);
+    background: #0a0a0a;
     scroll-snap-align: start;
 }
 
@@ -163,7 +163,7 @@ body {
 }
 
 .horizontal-content {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -172,22 +172,24 @@ body {
     flex-shrink: 0;
     box-sizing: border-box;
     overflow: hidden;
+    background: #0a0a0a;
+    position: relative;
 }
 
 .section:nth-child(2) {
-    background: linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 50%, #2d4a2d 100%);
+    background: #0a0a0a;
 }
 
 .section:nth-child(3) {
-    background: linear-gradient(135deg, #1e3a1e 0%, #2d4a2d 50%, #3a5a3a 100%);
+    background: #0a0a0a;
 }
 
 .section:nth-child(4) {
-    background: linear-gradient(135deg, #2d4a2d 0%, #3a5a3a 50%, #4a6a4a 100%);
+    background: #0a0a0a;
 }
 
 .section:nth-child(5) {
-    background: linear-gradient(135deg, #3a5a3a 0%, #4a6a4a 50%, #5a7a5a 100%);
+    background: #0a0a0a;
 }
 
 .section-content {
