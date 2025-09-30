@@ -436,14 +436,12 @@ body {
     display: none;
 }
 
-/* Horizontal arrow visibility */
-.horizontal-scroll-container:first-child .horizontal-nav-left {
+/* Hide scroll indicator on contact section (5th section) */
+#contact .scroll-indicator {
     display: none;
 }
 
-.horizontal-scroll-container:last-child .horizontal-nav-right {
-    display: none;
-}
+/* Horizontal arrow visibility - removed problematic rules */
 
 /* Section Titles */
 .section-title {
