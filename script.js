@@ -59,34 +59,18 @@ class NeuralGridLanding {
             }
         });
 
-        // Vertical scroll detection with throttling and snapping
-        let scrollStartTime = 0;
-        let scrollEndTime = 0;
-        
-        // Attach scroll listener to the main container instead of window
+        // Use scrollend event to detect when scroll snapping completes
         const mainContainer = document.querySelector('.main-container');
         
-        mainContainer.addEventListener('scroll', () => {
-            console.log('Scroll event detected!');
-            scrollStartTime = Date.now();
-            
-            // Always update current section and progress on scroll
+        mainContainer.addEventListener('scrollend', () => {
+            console.log('Scroll snap completed!');
             this.updateCurrentSection();
             this.updateProgress();
-            
-            if (!this.isScrolling) {
-                this.isScrolling = true;
-                clearTimeout(this.scrollTimeout);
-                this.scrollTimeout = setTimeout(() => {
-                    scrollEndTime = Date.now();
-                    this.isScrolling = false;
-                    
-                    // Only trigger snapping if scroll has stopped for 100ms
-                    if (scrollEndTime - scrollStartTime > 100) {
-                        this.checkScrollSnapping();
-                    }
-                }, 100);
-            }
+        });
+        
+        // Also listen for regular scroll events for progress updates
+        mainContainer.addEventListener('scroll', () => {
+            this.updateProgress();
         });
 
         // Horizontal scroll detection for each section
@@ -277,31 +261,23 @@ class NeuralGridLanding {
         const mainContainer = document.querySelector('.main-container');
         const scrollY = mainContainer.scrollTop;
         const windowHeight = mainContainer.clientHeight;
-        const viewportCenter = scrollY + windowHeight / 2;
         
-        let closestSection = 0;
-        let minDistance = Infinity;
+        // Find which section is currently at the top of the viewport
+        let currentSectionIndex = 0;
         
         this.sections.forEach((section, index) => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
-            const sectionCenter = sectionTop + section.offsetHeight / 2;
             
-            // Calculate distance from viewport center to section center
-            const distance = Math.abs(viewportCenter - sectionCenter);
-            
-            // Check if this section is visible in viewport
-            if (sectionTop <= scrollY + windowHeight && sectionBottom >= scrollY) {
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestSection = index;
-                }
+            // Check if this section is currently visible at the top of the viewport
+            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
+                currentSectionIndex = index;
             }
         });
         
-        if (closestSection !== this.currentSection) {
-            console.log(`Switching from section ${this.currentSection} to section ${closestSection}`);
-            this.currentSection = closestSection;
+        if (currentSectionIndex !== this.currentSection) {
+            console.log(`Switching from section ${this.currentSection} to section ${currentSectionIndex}`);
+            this.currentSection = currentSectionIndex;
             this.updateActiveNavLink();
             this.updateArrowVisibility();
         }
@@ -342,40 +318,6 @@ class NeuralGridLanding {
         }
     }
 
-    checkScrollSnapping() {
-        const mainContainer = document.querySelector('.main-container');
-        const scrollY = mainContainer.scrollTop;
-        const windowHeight = mainContainer.clientHeight;
-        
-        // Find the current section we're in
-        let currentSectionIndex = -1;
-        let currentScrollPercentage = 0;
-        
-        this.sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            
-            // Check if we're currently viewing this section
-            if (scrollY >= sectionTop - windowHeight / 2 && scrollY < sectionBottom - windowHeight / 2) {
-                currentSectionIndex = index;
-                const distanceFromTop = scrollY - sectionTop;
-                const sectionHeight = section.offsetHeight;
-                currentScrollPercentage = distanceFromTop / sectionHeight;
-            }
-        });
-        
-        // Apply snapping logic
-        if (currentSectionIndex >= 0) {
-            // If we've scrolled more than 50% into the section, snap to the next section
-            if (currentScrollPercentage > 0.5 && currentSectionIndex < this.sections.length - 1) {
-                this.scrollToSection(currentSectionIndex + 1);
-            }
-            // If we've scrolled less than 50% into the section, snap to the current section
-            else if (currentScrollPercentage <= 0.5) {
-                this.scrollToSection(currentSectionIndex);
-            }
-        }
-    }
 
     updateActiveNavLink() {
         console.log(`Updating nav links, current section: ${this.currentSection}`);
