@@ -634,17 +634,19 @@ body {
 /* Services Section */
 .services-content {
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
     margin-top: 2rem;
     max-width: 100%;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .service-card {
@@ -657,6 +659,10 @@ body {
     overflow: hidden;
     max-width: 100%;
     box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .service-card::before {
@@ -699,12 +705,17 @@ body {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .service-card p {
     color: #b0b0b0;
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .service-card ul {
@@ -716,6 +727,8 @@ body {
     margin-bottom: 0.5rem;
     position: relative;
     padding-left: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .service-card li::before {
