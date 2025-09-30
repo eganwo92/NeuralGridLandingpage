@@ -46,7 +46,7 @@ body {
     gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #00d4ff;
+    color: #32ff7e;
 }
 
 .nav-logo i {
@@ -68,7 +68,7 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    color: #00d4ff;
+    color: #32ff7e;
 }
 
 .nav-link::after {
@@ -78,7 +78,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: #00d4ff;
+    background: #32ff7e;
     transition: width 0.3s ease;
 }
 
@@ -116,7 +116,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 2rem;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 50%, #1e3a1e 100%);
 }
 
 /* Horizontal Scroll Containers */
@@ -146,19 +146,19 @@ body {
 }
 
 .section:nth-child(2) {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 50%, #2d4a2d 100%);
 }
 
 .section:nth-child(3) {
-    background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #533483 100%);
+    background: linear-gradient(135deg, #1e3a1e 0%, #2d4a2d 50%, #3a5a3a 100%);
 }
 
 .section:nth-child(4) {
-    background: linear-gradient(135deg, #0f3460 0%, #533483 50%, #7209b7 100%);
+    background: linear-gradient(135deg, #2d4a2d 0%, #3a5a3a 50%, #4a6a4a 100%);
 }
 
 .section:nth-child(5) {
-    background: linear-gradient(135deg, #533483 0%, #7209b7 50%, #a663cc 100%);
+    background: linear-gradient(135deg, #3a5a3a 0%, #4a6a4a 50%, #5a7a5a 100%);
 }
 
 .section-content {
@@ -183,7 +183,7 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(45deg, #00d4ff, #0099cc, #7209b7);
+    background: linear-gradient(45deg, #32ff7e, #00ff88, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -220,23 +220,23 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #00d4ff, #0099cc);
+    background: linear-gradient(45deg, #32ff7e, #00d4ff);
     color: #ffffff;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(50, 255, 126, 0.3);
 }
 
 .btn-secondary {
     background: transparent;
-    color: #00d4ff;
-    border: 2px solid #00d4ff;
+    color: #32ff7e;
+    border: 2px solid #32ff7e;
 }
 
 .btn-secondary:hover {
-    background: #00d4ff;
+    background: #32ff7e;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -264,7 +264,7 @@ body {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: #00d4ff;
+    background: #32ff7e;
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
 }
@@ -279,7 +279,7 @@ body {
 .connection {
     position: absolute;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, transparent);
+    background: linear-gradient(90deg, #32ff7e, transparent);
     animation: dataFlow 3s ease-in-out infinite;
 }
 
@@ -331,7 +331,7 @@ body {
     position: absolute;
     width: 50px;
     height: 50px;
-    border: 2px solid #00d4ff;
+    border: 2px solid #32ff7e;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -357,7 +357,7 @@ body {
 .scroll-arrow {
     width: 50px;
     height: 50px;
-    border: 2px solid #00d4ff;
+    border: 2px solid #32ff7e;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -369,13 +369,13 @@ body {
 }
 
 .scroll-arrow:hover {
-    background: #00d4ff;
-    color: #ffffff;
-    transform: translateX(-50%) scale(1.1);
+    background: #32ff7e !important;
+    color: #ffffff !important;
+    transform: translateX(-50%) scale(1.1) !important;
 }
 
 .scroll-arrow:active {
-    transform: translateX(-50%) scale(0.95);
+    transform: translateX(-50%) scale(0.95) !important;
 }
 
 /* Horizontal Navigation Arrows */
@@ -409,7 +409,7 @@ body {
 .horizontal-nav-left:hover,
 .horizontal-nav-right:hover {
     opacity: 1;
-    background: #00d4ff;
+    background: #32ff7e;
     color: #ffffff;
     transform: translateY(-50%) scale(1.1);
 }
@@ -461,23 +461,23 @@ body {
     padding: 1rem 2rem;
     font-size: 1rem;
     border-radius: 50px;
-    background: linear-gradient(45deg, #00d4ff, #0099cc);
+    background: linear-gradient(45deg, #32ff7e, #00d4ff);
     color: #ffffff;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(50, 255, 126, 0.3);
 }
 
 .return-to-top-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
-    background: linear-gradient(45deg, #0099cc, #00d4ff);
+    box-shadow: 0 8px 25px rgba(50, 255, 126, 0.4);
+    background: linear-gradient(45deg, #00d4ff, #32ff7e);
 }
 
 .return-to-top-btn:active {
     transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(50, 255, 126, 0.3);
 }
 
 /* Horizontal arrow visibility - removed problematic rules */
@@ -488,7 +488,7 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #00d4ff, #7209b7);
+    background: linear-gradient(45deg, #32ff7e, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -743,7 +743,7 @@ body {
     position: absolute;
     width: 15px;
     height: 15px;
-    background: #00d4ff;
+    background: #32ff7e;
     border-radius: 50%;
     animation: dataPulse 2s ease-in-out infinite;
 }
@@ -1057,7 +1057,7 @@ body {
 }
 
 .social-links a:hover {
-    background: #00d4ff;
+    background: #32ff7e;
     border-color: #00d4ff;
     color: #ffffff;
 }
@@ -1115,7 +1115,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00d4ff, #7209b7);
+    background: linear-gradient(90deg, #32ff7e, #00d4ff);
     width: 0%;
     transition: width 0.3s ease;
 }
