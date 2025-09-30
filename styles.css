@@ -199,9 +199,12 @@ body {
 /* Hero Section */
 .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: auto auto;
+    gap: 3rem;
     align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .hero-title {
@@ -1199,6 +1202,8 @@ body {
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 2rem;
+        justify-content: center;
     }
     
     .hero-title {
