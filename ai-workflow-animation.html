@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workflow Animation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0a0a0a;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .workflow-container {
+            position: relative;
+            width: 500px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        .workflow-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            color: #32ff7e;
+        }
+
+        .developers {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .developer {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .developer:nth-child(1) { animation-delay: 0s; }
+        .developer:nth-child(2) { animation-delay: 0.5s; }
+        .developer:nth-child(3) { animation-delay: 1s; }
+
+        .ai-models {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .ai-model {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #32ff7e, #00ff88);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: glow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .ai-model:nth-child(1) { animation-delay: 0s; }
+        .ai-model:nth-child(2) { animation-delay: 1s; }
+        .ai-model:nth-child(3) { animation-delay: 2s; }
+
+        .users {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .user {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #7209b7, #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .user:nth-child(1) { animation-delay: 0.3s; }
+        .user:nth-child(2) { animation-delay: 0.8s; }
+        .user:nth-child(3) { animation-delay: 1.3s; }
+
+        /* Connection Arrows */
+        .connection-arrow {
+            position: absolute;
+            color: #32ff7e;
+            font-size: 2rem;
+            animation: arrowFlow 3s ease-in-out infinite;
+        }
+
+        .arrow-dev-to-ai {
+            top: 190px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 0s;
+        }
+
+        .arrow-ai-to-user {
+            bottom: 190px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 1.5s;
+        }
+
+        .arrow-dev1-to-ai1 {
+            top: 190px;
+            left: 42%;
+            transform: rotate(10deg);
+            animation-delay: 0.5s;
+        }
+
+        .arrow-dev2-to-ai2 {
+            top: 190px;
+            left: 50%;
+            animation-delay: 1s;
+        }
+
+        .arrow-dev3-to-ai3 {
+            top: 190px;
+            left: 58%;
+            transform: rotate(-10deg);
+            animation-delay: 1.2s;
+        }
+
+        .arrow-ai1-to-user1 {
+            bottom: 190px;
+            left: 42%;
+            transform: rotate(-10deg);
+            animation-delay: 2s;
+        }
+
+        .arrow-ai2-to-user2 {
+            bottom: 190px;
+            left: 50%;
+            animation-delay: 2.2s;
+        }
+
+        .arrow-ai3-to-user3 {
+            bottom: 190px;
+            left: 58%;
+            transform: rotate(10deg);
+            animation-delay: 2.5s;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 1; 
+            }
+            50% { 
+                transform: scale(1.1); 
+                opacity: 0.8; 
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(50, 255, 126, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(50, 255, 126, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes arrowFlow {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-10px);
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(10px);
+            }
+        }
+
+        .labels {
+            position: absolute;
+            left: 10px;
+            text-align: left;
+        }
+
+        .label-developers {
+            top: 140px;
+            font-size: 0.9rem;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .label-ai-agents {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: #32ff7e;
+            font-weight: bold;
+        }
+
+        .label-users {
+            bottom: 140px;
+            font-size: 0.9rem;
+            color: #7209b7;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="workflow-container">
+        
+        <!-- Developers -->
+        <div class="developers">
+            <div class="developer">
+                <i class="fas fa-user-tie" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+            <div class="developer">
+                <i class="fas fa-user-graduate" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+            <div class="developer">
+                <i class="fas fa-user-cog" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+        </div>
+
+        <!-- AI Agents -->
+        <div class="ai-models">
+            <div class="ai-model">
+                <i class="fas fa-robot" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <div class="ai-model">
+                <i class="fas fa-microchip" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <div class="ai-model">
+                <i class="fas fa-cogs" style="font-size: 2rem; color: white;"></i>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="users">
+            <div class="user">
+                <i class="fas fa-user" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+            <div class="user">
+                <i class="fas fa-users" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+            <div class="user">
+                <i class="fas fa-user-tie" style="font-size: 1.5rem; color: white;"></i>
+            </div>
+        </div>
+
+        <!-- Connection Arrows -->
+        <div class="connection-arrow arrow-dev-to-ai">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-ai-to-user">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-dev1-to-ai1">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-dev2-to-ai2">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-dev3-to-ai3">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-ai1-to-user1">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-ai2-to-user2">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        <div class="connection-arrow arrow-ai3-to-user3">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+
+        <!-- Labels -->
+        <div class="labels label-developers">Developers</div>
+        <div class="labels label-ai-agents">AI Agents</div>
+        <div class="labels label-users">Users</div>
+    </div>
+</body>
+</html>

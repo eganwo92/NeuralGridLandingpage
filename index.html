@@ -46,7 +46,8 @@
                         <div class="hero-text">
                             <h1 class="hero-title">
                                 <span class="gradient-text" style="font-size: 3.5rem;">NeuralGrid</span>
-                                <br><span style="font-size: 1.8rem;">Browse and use all types of AI Agent in NeuralGrid Marketplace! Upload and Deploy Custom AI Agents in One Click.</span>
+                                <br><span style="font-size: 1.8rem;">Browse and use all types of AI Agent in NeuralGrid Marketplace!</span>
+                                <br><span style="font-size: 1.8rem;">Upload and Deploy Custom AI Agents in One Click.</span>
                             </h1>
                             <p class="hero-subtitle">
                                 A platform where users discover AI Agents and AI developers get paid for sharing them.
@@ -57,19 +58,76 @@
                             </div>
                         </div>
                         <div class="hero-visual">
-                            <div class="ai-brain">
-                                <div class="neural-network">
-                                    <div class="node"></div>
-                                    <div class="node"></div>
-                                    <div class="node"></div>
-                                    <div class="node"></div>
-                                    <div class="node"></div>
-                                    <div class="node"></div>
-                                    <div class="connection"></div>
-                                    <div class="connection"></div>
-                                    <div class="connection"></div>
-                                    <div class="connection"></div>
+                            <div class="workflow-container" style="width: 500px; height: 600px; background: #0a0a0a; border-radius: 20px; padding: 50px; box-sizing: border-box;">
+                                <!-- Developers -->
+                                <div class="developers" style="position: absolute; top: 120px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px;">
+                                    <div class="developer" style="width: 60px; height: 60px; background: linear-gradient(45deg, #00d4ff, #0099cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite;">
+                                        <i class="fas fa-user-tie" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
+                                    <div class="developer" style="width: 60px; height: 60px; background: linear-gradient(45deg, #00d4ff, #0099cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite; animation-delay: 0.5s;">
+                                        <i class="fas fa-user-graduate" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
+                                    <div class="developer" style="width: 60px; height: 60px; background: linear-gradient(45deg, #00d4ff, #0099cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite; animation-delay: 1s;">
+                                        <i class="fas fa-user-cog" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
                                 </div>
+
+                                <!-- AI Agents -->
+                                <div class="ai-models" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 15px;">
+                                    <div class="ai-model" style="width: 80px; height: 80px; background: linear-gradient(45deg, #32ff7e, #00ff88); border-radius: 15px; display: flex; align-items: center; justify-content: center; animation: glow 3s ease-in-out infinite;">
+                                        <i class="fas fa-robot" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                    <div class="ai-model" style="width: 80px; height: 80px; background: linear-gradient(45deg, #32ff7e, #00ff88); border-radius: 15px; display: flex; align-items: center; justify-content: center; animation: glow 3s ease-in-out infinite; animation-delay: 1s;">
+                                        <i class="fas fa-microchip" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                    <div class="ai-model" style="width: 80px; height: 80px; background: linear-gradient(45deg, #32ff7e, #00ff88); border-radius: 15px; display: flex; align-items: center; justify-content: center; animation: glow 3s ease-in-out infinite; animation-delay: 2s;">
+                                        <i class="fas fa-cogs" style="font-size: 2rem; color: white;"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Users -->
+                                <div class="users" style="position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px;">
+                                    <div class="user" style="width: 60px; height: 60px; background: linear-gradient(45deg, #7209b7, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite; animation-delay: 0.3s;">
+                                        <i class="fas fa-user" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
+                                    <div class="user" style="width: 60px; height: 60px; background: linear-gradient(45deg, #7209b7, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite; animation-delay: 0.8s;">
+                                        <i class="fas fa-users" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
+                                    <div class="user" style="width: 60px; height: 60px; background: linear-gradient(45deg, #7209b7, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite; animation-delay: 1.3s;">
+                                        <i class="fas fa-user-tie" style="font-size: 1.5rem; color: white;"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Connection Arrows -->
+                                <div class="connection-arrow arrow-dev-to-ai" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; top: 190px; left: 50%; transform: translateX(-50%);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-ai-to-user" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 1.5s; bottom: 190px; left: 50%; transform: translateX(-50%);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-dev1-to-ai1" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 0.5s; top: 190px; left: 42%; transform: rotate(10deg);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-dev2-to-ai2" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 1s; top: 190px; left: 50%;">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-dev3-to-ai3" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 1.2s; top: 190px; left: 58%; transform: rotate(-10deg);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-ai1-to-user1" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 2s; bottom: 190px; left: 42%; transform: rotate(-10deg);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-ai2-to-user2" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 2.2s; bottom: 190px; left: 50%;">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="connection-arrow arrow-ai3-to-user3" style="position: absolute; color: #32ff7e; font-size: 2rem; animation: arrowFlow 3s ease-in-out infinite; animation-delay: 2.5s; bottom: 190px; left: 58%; transform: rotate(10deg);">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+
+                                <!-- Labels -->
+                                <div style="position: absolute; left: 10px; text-align: left; top: 140px; font-size: 0.9rem; color: #00d4ff; font-weight: bold;">Developers</div>
+                                <div style="position: absolute; left: 10px; text-align: left; top: 50%; transform: translateY(-50%); font-size: 0.9rem; color: #32ff7e; font-weight: bold;">AI Agents</div>
+                                <div style="position: absolute; left: 10px; text-align: left; bottom: 140px; font-size: 0.9rem; color: #7209b7; font-weight: bold;">Users</div>
                             </div>
                         </div>
                     </div>
