@@ -384,17 +384,16 @@ body {
     transition: all 0.3s ease;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    transform: translateX(-50%);
 }
 
 .scroll-arrow:hover {
     background: #32ff7e !important;
     color: #ffffff !important;
-    transform: translateX(-50%) scale(1.1) !important;
+    transform: scale(1.1) !important;
 }
 
 .scroll-arrow:active {
-    transform: translateX(-50%) scale(0.95) !important;
+    transform: scale(0.95) !important;
 }
 
 /* Horizontal Navigation Arrows */
