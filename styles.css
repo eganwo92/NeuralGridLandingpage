@@ -556,40 +556,44 @@ body {
 
 /* How it Works Layout */
 .how-it-works-layout {
-    display: grid !important;
-    grid-template-columns: 30% 70% !important;
-    gap: 2rem;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
     height: 100vh;
     min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    width: 100%;
 }
 
 .content-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem 2rem 2rem 10%;
-    width: 100%;
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    width: 40%;
+    max-width: 40%;
     box-sizing: border-box;
 }
 
 .content-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2rem;
-    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 20%;
+    width: 30%;
+    max-width: 30%;
     box-sizing: border-box;
 }
 
 .content-right-header {
     margin-bottom: 2rem;
-    text-align: center;
+    text-align: left;
     width: 100%;
 }
 
@@ -638,11 +642,13 @@ body {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem;
+    padding: 2rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     transition: all 0.3s ease;
+    min-height: 80px;
+    width: 100%;
 }
 
 .step-item:hover {
@@ -652,23 +658,24 @@ body {
 }
 
 .step-number {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(45deg, #32ff7e, #00d4ff);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #ffffff;
     flex-shrink: 0;
 }
 
 .step-text {
     color: #ffffff;
-    font-size: 1.1rem;
-    line-height: 1.5;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    flex: 1;
 }
 
 /* Image Container */
@@ -1371,22 +1378,45 @@ body {
     }
     
     .how-it-works-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .main-header {
+        margin-bottom: 2rem;
     }
     
     .content-left {
-        align-items: center;
-        text-align: center;
-        padding: 1rem;
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 2rem;
     }
     
     .content-right {
-        padding: 1rem;
+        position: static;
+        width: 100%;
+        max-width: 100%;
     }
     
     .content-right-header {
         margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .step-item {
+        padding: 1.5rem;
+        min-height: 60px;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .step-text {
+        font-size: 1rem;
     }
     
     .homepage-image {
