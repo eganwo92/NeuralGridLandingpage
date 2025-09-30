@@ -11,8 +11,8 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: #ffffff;
+    color: #333333;
     overflow-x: hidden;
     line-height: 1.6;
 }
@@ -24,9 +24,9 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -59,7 +59,7 @@ body {
 }
 
 .nav-link {
-    color: #ffffff;
+    color: #333333;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -116,7 +116,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 2rem;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 50%, #1e3a1e 100%);
+    background: #ffffff;
 }
 
 /* Horizontal Scroll Containers */
@@ -146,19 +146,19 @@ body {
 }
 
 .section:nth-child(2) {
-    background: linear-gradient(135deg, #1a2e1a 0%, #1e3a1e 50%, #2d4a2d 100%);
+    background: #ffffff;
 }
 
 .section:nth-child(3) {
-    background: linear-gradient(135deg, #1e3a1e 0%, #2d4a2d 50%, #3a5a3a 100%);
+    background: #ffffff;
 }
 
 .section:nth-child(4) {
-    background: linear-gradient(135deg, #2d4a2d 0%, #3a5a3a 50%, #4a6a4a 100%);
+    background: #ffffff;
 }
 
 .section:nth-child(5) {
-    background: linear-gradient(135deg, #3a5a3a 0%, #4a6a4a 50%, #5a7a5a 100%);
+    background: #ffffff;
 }
 
 .section-content {
@@ -197,7 +197,7 @@ body {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #b0b0b0;
+    color: #666666;
     margin-bottom: 2rem;
     line-height: 1.6;
 }
@@ -221,7 +221,7 @@ body {
 
 .btn-primary {
     background: linear-gradient(45deg, #32ff7e, #00d4ff);
-    color: #ffffff;
+    color: #000000;
 }
 
 .btn-primary:hover {
@@ -237,7 +237,7 @@ body {
 
 .btn-secondary:hover {
     background: #32ff7e;
-    color: #ffffff;
+    color: #000000;
     transform: translateY(-2px);
 }
 
@@ -370,7 +370,7 @@ body {
 
 .scroll-arrow:hover {
     background: #32ff7e !important;
-    color: #ffffff !important;
+    color: #000000 !important;
     transform: translateX(-50%) scale(1.1) !important;
 }
 
@@ -410,7 +410,7 @@ body {
 .horizontal-nav-right:hover {
     opacity: 1;
     background: #32ff7e;
-    color: #ffffff;
+    color: #000000;
     transform: translateY(-50%) scale(1.1);
 }
 
@@ -462,7 +462,7 @@ body {
     font-size: 1rem;
     border-radius: 50px;
     background: linear-gradient(45deg, #32ff7e, #00d4ff);
-    color: #ffffff;
+    color: #000000;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -496,7 +496,7 @@ body {
 
 .section-description {
     font-size: 1.25rem;
-    color: #b0b0b0;
+    color: #666666;
     text-align: center;
     margin-bottom: 3rem;
     max-width: 600px;
@@ -653,17 +653,17 @@ body {
 
 .service-icon i {
     font-size: 1.5rem;
-    color: #ffffff;
+    color: #32ff7e;
 }
 
 .service-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #ffffff;
+    color: #333333;
 }
 
 .service-card p {
-    color: #b0b0b0;
+    color: #666666;
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
@@ -967,7 +967,7 @@ body {
 
 .member-avatar i {
     font-size: 2rem;
-    color: #ffffff;
+    color: #32ff7e;
 }
 
 .team-member h3 {
@@ -1082,10 +1082,10 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    color: #ffffff;
+    color: #333333;
     font-size: 1rem;
     transition: all 0.3s ease;
 }
@@ -1093,8 +1093,8 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.1);
+    border-color: #32ff7e;
+    background: rgba(50, 255, 126, 0.1);
 }
 
 .form-group input::placeholder,
