@@ -11,8 +11,8 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #ffffff;
-    color: #333333;
+    background: #ffffff !important;
+    color: #333333 !important;
     overflow-x: hidden;
     line-height: 1.6;
 }
@@ -96,7 +96,7 @@ body {
 .nav-toggle span {
     width: 25px;
     height: 3px;
-    background: #ffffff;
+    background: #ffffff !important;
     margin: 3px 0;
     transition: 0.3s;
 }
@@ -116,7 +116,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 2rem;
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 /* Horizontal Scroll Containers */
@@ -146,19 +146,19 @@ body {
 }
 
 .section:nth-child(2) {
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 .section:nth-child(3) {
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 .section:nth-child(4) {
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 .section:nth-child(5) {
-    background: #ffffff;
+    background: #ffffff !important;
 }
 
 .section-content {
@@ -221,7 +221,7 @@ body {
 
 .btn-primary {
     background: linear-gradient(45deg, #32ff7e, #00d4ff);
-    color: #000000;
+    color: #000000 !important;
 }
 
 .btn-primary:hover {
@@ -237,7 +237,7 @@ body {
 
 .btn-secondary:hover {
     background: #32ff7e;
-    color: #000000;
+    color: #000000 !important;
     transform: translateY(-2px);
 }
 
@@ -410,7 +410,7 @@ body {
 .horizontal-nav-right:hover {
     opacity: 1;
     background: #32ff7e;
-    color: #000000;
+    color: #000000 !important;
     transform: translateY(-50%) scale(1.1);
 }
 
@@ -462,7 +462,7 @@ body {
     font-size: 1rem;
     border-radius: 50px;
     background: linear-gradient(45deg, #32ff7e, #00d4ff);
-    color: #000000;
+    color: #000000 !important;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
