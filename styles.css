@@ -36,12 +36,17 @@ body {
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 70px;
+    position: relative;
 }
 
 .nav-logo {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -1142,6 +1147,10 @@ body {
     
     .nav-toggle {
         display: flex;
+    }
+    
+    .nav-logo {
+        left: 1rem;
     }
     
     .hero-content {
