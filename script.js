@@ -66,6 +66,10 @@ class NeuralGridLanding {
         window.addEventListener('scroll', () => {
             scrollStartTime = Date.now();
             
+            // Always update current section and progress on scroll
+            this.updateCurrentSection();
+            this.updateProgress();
+            
             if (!this.isScrolling) {
                 this.isScrolling = true;
                 clearTimeout(this.scrollTimeout);
@@ -78,9 +82,6 @@ class NeuralGridLanding {
                         this.checkScrollSnapping();
                     }
                 }, 100);
-                
-                this.updateCurrentSection();
-                this.updateProgress();
             }
         });
 
