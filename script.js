@@ -17,12 +17,6 @@ class NeuralGridLanding {
     }
 
     init() {
-        console.log('Initializing NeuralGrid Landing Page');
-        console.log('Sections found:', this.sections.length);
-        console.log('Horizontal containers found:', this.horizontalContainers.length);
-        console.log('Left arrows found:', this.horizontalNavLeft.length);
-        console.log('Right arrows found:', this.horizontalNavRight.length);
-        
         this.setupEventListeners();
         this.updateProgress();
         this.setupScrollSnap();
@@ -51,7 +45,6 @@ class NeuralGridLanding {
             if (arrow) {
                 arrow.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log(`Left arrow clicked for section ${index}`);
                     this.scrollHorizontalLeft(index);
                 });
             }
@@ -61,7 +54,6 @@ class NeuralGridLanding {
             if (arrow) {
                 arrow.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log(`Right arrow clicked for section ${index}`);
                     this.scrollHorizontalRight(index);
                 });
             }
@@ -229,15 +221,12 @@ class NeuralGridLanding {
     }
 
     scrollHorizontalLeft(sectionIndex = this.currentSection) {
-        console.log(`scrollHorizontalLeft called for section ${sectionIndex}`);
         const container = this.horizontalContainers[sectionIndex];
-        console.log(`Container found:`, container);
         if (container) {
             const containerWidth = container.clientWidth;
             const currentScroll = container.scrollLeft;
             const targetScroll = Math.max(0, currentScroll - containerWidth);
             
-            console.log(`Scrolling from ${currentScroll} to ${targetScroll}`);
             container.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'
@@ -247,22 +236,17 @@ class NeuralGridLanding {
             setTimeout(() => {
                 this.updateArrowVisibility();
             }, 300);
-        } else {
-            console.log(`No container found for section ${sectionIndex}`);
         }
     }
 
     scrollHorizontalRight(sectionIndex = this.currentSection) {
-        console.log(`scrollHorizontalRight called for section ${sectionIndex}`);
         const container = this.horizontalContainers[sectionIndex];
-        console.log(`Container found:`, container);
         if (container) {
             const containerWidth = container.clientWidth;
             const currentScroll = container.scrollLeft;
             const maxScroll = container.scrollWidth - containerWidth;
             const targetScroll = Math.min(maxScroll, currentScroll + containerWidth);
             
-            console.log(`Scrolling from ${currentScroll} to ${targetScroll}`);
             container.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'
@@ -273,7 +257,6 @@ class NeuralGridLanding {
                 this.updateArrowVisibility();
             }, 300);
         } else {
-            console.log(`No container found for section ${sectionIndex}`);
         }
     }
 

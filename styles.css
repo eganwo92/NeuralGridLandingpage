@@ -346,11 +346,11 @@ body {
 .nav-arrow:hover {
     background: #00d4ff;
     color: #ffffff;
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .nav-arrow:active {
-    transform: scale(0.95);
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* Vertical Navigation Arrows */
@@ -379,7 +379,11 @@ body {
 .scroll-arrow:hover {
     background: #00d4ff;
     color: #ffffff;
-    transform: scale(1.1);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.scroll-arrow:active {
+    transform: translateX(-50%) scale(0.95);
 }
 
 /* Horizontal Navigation Arrows */
@@ -389,7 +393,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 200;
     pointer-events: auto;
 }
@@ -400,7 +404,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 200;
     pointer-events: auto;
 }
@@ -413,6 +417,14 @@ body {
 .horizontal-nav-left:hover,
 .horizontal-nav-right:hover {
     opacity: 1;
+    background: #00d4ff;
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.horizontal-nav-left:active,
+.horizontal-nav-right:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* Arrow Animations */
