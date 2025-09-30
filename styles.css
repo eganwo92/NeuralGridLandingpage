@@ -556,14 +556,15 @@ body {
 
 /* How it Works Layout */
 .how-it-works-layout {
-    display: grid;
-    grid-template-columns: 30% 70%;
+    display: grid !important;
+    grid-template-columns: 30% 70% !important;
     gap: 2rem;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    min-height: 100vh;
 }
 
 .content-left {
@@ -572,6 +573,8 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .content-right {
@@ -579,6 +582,8 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .stats-grid {
@@ -666,11 +671,12 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
+    max-height: 80vh;
 }
 
 .homepage-image {
     width: 100%;
-    height: 100%;
+    height: auto;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -690,6 +696,7 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
+    max-height: 80vh;
     min-height: 400px;
     background: rgba(255, 255, 255, 0.05);
     border: 2px dashed rgba(255, 255, 255, 0.2);
