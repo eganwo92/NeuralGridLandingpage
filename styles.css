@@ -632,21 +632,31 @@ body {
 }
 
 /* Services Section */
+.services-content {
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .service-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    padding: 2rem;
+    padding: 1.5rem;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .service-card::before {
@@ -719,15 +729,19 @@ body {
 .tech-showcase {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
     align-items: center;
     margin-bottom: 3rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .tech-stack {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .tech-item {
@@ -808,6 +822,8 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .feature-item {
@@ -844,8 +860,10 @@ body {
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
     margin-top: 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .contact-info {
@@ -914,6 +932,8 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .feature-card {
