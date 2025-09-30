@@ -343,15 +343,7 @@ body {
     z-index: 100;
 }
 
-.nav-arrow:hover {
-    background: #00d4ff;
-    color: #ffffff;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.nav-arrow:active {
-    transform: translateY(-50%) scale(0.95);
-}
+/* General nav arrow hover - removed to avoid conflicts */
 
 /* Vertical Navigation Arrows */
 .scroll-indicator {
@@ -451,6 +443,41 @@ body {
 /* Hide scroll indicator on contact section (5th section) */
 #contact .scroll-indicator {
     display: none;
+}
+
+/* Return to Top Button */
+.return-to-top {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.return-to-top-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #00d4ff, #0099cc);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+.return-to-top-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    background: linear-gradient(45deg, #0099cc, #00d4ff);
+}
+
+.return-to-top-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 }
 
 /* Horizontal arrow visibility - removed problematic rules */

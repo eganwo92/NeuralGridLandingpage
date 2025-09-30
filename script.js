@@ -119,6 +119,14 @@ class NeuralGridLanding {
         if (navToggle) {
             navToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
         }
+
+        // Return to top button
+        const returnToTopBtn = document.querySelector('.return-to-top-btn');
+        if (returnToTopBtn) {
+            returnToTopBtn.addEventListener('click', () => {
+                this.scrollToSection(0);
+            });
+        }
     }
 
     setupTouchEvents() {
