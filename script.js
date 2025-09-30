@@ -63,7 +63,10 @@ class NeuralGridLanding {
         let scrollStartTime = 0;
         let scrollEndTime = 0;
         
-        window.addEventListener('scroll', () => {
+        // Attach scroll listener to the main container instead of window
+        const mainContainer = document.querySelector('.main-container');
+        
+        mainContainer.addEventListener('scroll', () => {
             console.log('Scroll event detected!');
             scrollStartTime = Date.now();
             
@@ -271,8 +274,9 @@ class NeuralGridLanding {
     }
 
     updateCurrentSection() {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
+        const mainContainer = document.querySelector('.main-container');
+        const scrollY = mainContainer.scrollTop;
+        const windowHeight = mainContainer.clientHeight;
         const viewportCenter = scrollY + windowHeight / 2;
         
         let closestSection = 0;
@@ -339,8 +343,9 @@ class NeuralGridLanding {
     }
 
     checkScrollSnapping() {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
+        const mainContainer = document.querySelector('.main-container');
+        const scrollY = mainContainer.scrollTop;
+        const windowHeight = mainContainer.clientHeight;
         
         // Find the current section we're in
         let currentSectionIndex = -1;
@@ -382,8 +387,9 @@ class NeuralGridLanding {
     }
 
     updateProgress() {
-        const scrollY = window.scrollY;
-        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const mainContainer = document.querySelector('.main-container');
+        const scrollY = mainContainer.scrollTop;
+        const documentHeight = mainContainer.scrollHeight - mainContainer.clientHeight;
         const progress = (scrollY / documentHeight) * 100;
         
         this.progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
