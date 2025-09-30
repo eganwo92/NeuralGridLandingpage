@@ -272,21 +272,34 @@ class NeuralGridLanding {
     updateCurrentSection() {
         const scrollY = window.scrollY;
         const windowHeight = window.innerHeight;
+        const viewportCenter = scrollY + windowHeight / 2;
+        
+        let closestSection = 0;
+        let minDistance = Infinity;
         
         this.sections.forEach((section, index) => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
-            const sectionMiddle = sectionTop + (section.offsetHeight / 2);
+            const sectionCenter = sectionTop + section.offsetHeight / 2;
             
-            // Check if we're in the middle 50% of the section for snapping
-            if (scrollY >= sectionTop - windowHeight / 4 && scrollY < sectionBottom - windowHeight / 4) {
-                if (index !== this.currentSection) {
-                    this.currentSection = index;
-                    this.updateActiveNavLink();
-                    this.updateArrowVisibility();
+            // Calculate distance from viewport center to section center
+            const distance = Math.abs(viewportCenter - sectionCenter);
+            
+            // Check if this section is visible in viewport
+            if (sectionTop <= scrollY + windowHeight && sectionBottom >= scrollY) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestSection = index;
                 }
             }
         });
+        
+        if (closestSection !== this.currentSection) {
+            console.log(`Switching from section ${this.currentSection} to section ${closestSection}`);
+            this.currentSection = closestSection;
+            this.updateActiveNavLink();
+            this.updateArrowVisibility();
+        }
     }
 
     updateArrowVisibility() {
@@ -359,8 +372,11 @@ class NeuralGridLanding {
     }
 
     updateActiveNavLink() {
+        console.log(`Updating nav links, current section: ${this.currentSection}`);
         this.navLinks.forEach((link, index) => {
-            link.classList.toggle('active', index === this.currentSection);
+            const isActive = index === this.currentSection;
+            link.classList.toggle('active', isActive);
+            console.log(`Nav link ${index}: ${isActive ? 'active' : 'inactive'}`);
         });
     }
 
