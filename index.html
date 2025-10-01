@@ -53,8 +53,8 @@
                                 A platform where users discover AI Agents and AI developers get paid for sharing them.
                             </p>
                             <div class="hero-buttons">
-                                <button class="btn btn-primary">Users</button>
-                                <button class="btn btn-secondary">AI Developers</button>
+                                <a href="#how-it-works-users" class="btn btn-primary">Users</a>
+                                <a href="#how-it-works-developers" class="btn btn-secondary">AI Developers</a>
                             </div>
                         </div>
                         <div class="hero-visual">
@@ -137,9 +137,19 @@
                         <h2>Why Choose NeuralGrid?</h2>
                         <div class="features-grid">
                             <div class="feature-card">
+                                <i class="fas fa-robot"></i>
+                                <h3>All Types of AI Agents</h3>
+                                <p>Browse and Use any AI Agents to help with your work</p>
+                            </div>
+                            <div class="feature-card">
                                 <i class="fa-solid fa-coins"></i>
                                 <h3>Pay-per-use</h3>
                                 <p>Use AI Agents by tokens and pay only for what you use</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Secure & Reliable</h3>
+                                <p>Enterprise-grade security and uptime</p>
                             </div>
                             <div class="feature-card">
                                 <i class="fas fa-rocket"></i>
@@ -147,9 +157,14 @@
                                 <p>One click integration for AI Agent Developers</p>
                             </div>
                             <div class="feature-card">
-                                <i class="fas fa-shield-alt"></i>
-                                <h3>Secure & Reliable</h3>
-                                <p>Enterprise-grade security and uptime</p>
+                                <i class="fas fa-palette"></i>
+                                <h3>Customizable UI/UX</h3>
+                                <p>Deploy your front end or use our templates</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-dollar-sign"></i>
+                                <h3>Earn Passive Income</h3>
+                                <p>Earn passive income just by deploying your AI Agent</p>
                             </div>
                         </div>
                     </div>
@@ -171,7 +186,7 @@
                 <i class="fas fa-chevron-right"></i>
             </div>
             <div class="horizontal-scroll-container">
-                <div class="horizontal-content">
+                <div class="horizontal-content" id="how-it-works-users">
                     <div class="how-it-works-layout">
                         <div class="main-header">
                             <h2 class="section-title">How it works</h2>
@@ -209,7 +224,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="horizontal-content">
+                <div class="horizontal-content" id="how-it-works-developers">
                     <div class="how-it-works-layout">
                         <div class="main-header">
                             <h2 class="section-title">How it works</h2>
@@ -428,53 +443,51 @@
             </div>
             <div class="horizontal-scroll-container">
                 <div class="horizontal-content">
-                    <div class="contact-content">
+                    <div class="faq-content">
                         <h2 class="section-title">FAQ</h2>
                         <p class="section-description">
                             Find answers to the most commonly asked questions about NeuralGrid
                         </p>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <div>
-                                    <h3>Email</h3>
-                                    <p>hello@neuralgrid.ai</p>
-                                </div>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <p><strong>Is this platform free to use?</strong><br>
+                                Signups are free with 100k early access tokens. Tokens will be used to pay for AI agent usage.</p>
                             </div>
-                            <div class="contact-item">
-                                <i class="fas fa-phone"></i>
-                                <div>
-                                    <h3>Phone</h3>
-                                    <p>+1 (555) 123-4567</p>
-                                </div>
+                            
+                            <div class="faq-item">
+                                <p><strong>What AI Agent can I find on the platform?</strong><br>
+                                Any AI agents can be found, browse by categories to find the one you need.</p>
                             </div>
-                            <div class="contact-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div>
-                                    <h3>Location</h3>
-                                    <p>San Francisco, CA</p>
-                                </div>
+                            
+                            <div class="faq-item">
+                                <p><strong>Can I upload my GPT-based agent?</strong><br>
+                                Yes, you can upload any LLMs AI agent on the platform, as long as it is a folder containing the required parts as per documentation provided.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <p><strong>What languages are supported?</strong><br>
+                                The website will be based in English, but the AI agents can be of any language.</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="horizontal-content">
-                    <div class="contact-form">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" placeholder="Your Name" required>
+                    <div class="faq-content">
+                        <h2 class="section-title">FAQ</h2>
+                        <p class="section-description">
+                            Find answers to the most commonly asked questions about NeuralGrid
+                        </p>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <p><strong>How do developers get paid?</strong><br>
+                                Developers will be paid by the token usage count from the users, do follow the documentation to insert a token tracker count.</p>
                             </div>
-                            <div class="form-group">
-                                <input type="email" placeholder="Your Email" required>
+                            
+                            <div class="faq-item">
+                                <p><strong>Will my AI Agent code be exposed or accessed?</strong><br>
+                                No, we will not be exposing your AI Agent codes or stealing it. We are only running a platform to host your code. However, there will be security checks and guardrails in placed.</p>
                             </div>
-                            <div class="form-group">
-                                <input type="text" placeholder="Company">
-                            </div>
-                            <div class="form-group">
-                                <textarea placeholder="Your Message" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
