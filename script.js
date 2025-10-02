@@ -22,6 +22,7 @@ class NeuralGridLanding {
         this.setupScrollSnap();
         this.setupAnimations();
         this.updateArrowVisibility();
+        this.setupSignupForm();
     }
 
     setupEventListeners() {
@@ -416,6 +417,103 @@ class NeuralGridLanding {
         
         navMenu.classList.toggle('active');
         navToggle.classList.toggle('active');
+    }
+
+    // Setup signup form with email validation
+    setupSignupForm() {
+        const signupForm = document.getElementById('signupForm');
+        const emailInput = document.getElementById('email');
+        const referrerInput = document.getElementById('referrer');
+        const emailError = document.getElementById('emailError');
+        const referrerError = document.getElementById('referrerError');
+
+        if (!signupForm) return;
+
+        // Email validation function
+        const validateEmail = (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        };
+
+        // Real-time email validation
+        if (emailInput) {
+            emailInput.addEventListener('input', () => {
+                const email = emailInput.value.trim();
+                if (email && !validateEmail(email)) {
+                    if (emailError) {
+                        emailError.textContent = 'Please enter a valid email address';
+                        emailError.style.display = 'block';
+                    }
+                    emailInput.style.borderColor = '#ff6b6b';
+                } else {
+                    if (emailError) {
+                        emailError.style.display = 'none';
+                    }
+                    emailInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+        }
+
+        // Real-time referrer email validation
+        if (referrerInput) {
+            referrerInput.addEventListener('input', () => {
+                const referrerEmail = referrerInput.value.trim();
+                if (referrerEmail && !validateEmail(referrerEmail)) {
+                    if (referrerError) {
+                        referrerError.textContent = 'Please enter a valid email address';
+                        referrerError.style.display = 'block';
+                    }
+                    referrerInput.style.borderColor = '#ff6b6b';
+                } else {
+                    if (referrerError) {
+                        referrerError.style.display = 'none';
+                    }
+                    referrerInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
+        }
+
+        // Form submission
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(signupForm);
+            const email = formData.get('email') ? formData.get('email').trim() : '';
+            const referrerEmail = formData.get('referrer') ? formData.get('referrer').trim() : '';
+            
+            // Validate required fields
+            if (!email || !validateEmail(email)) {
+                if (emailError) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                }
+                if (emailInput) {
+                    emailInput.style.borderColor = '#ff6b6b';
+                }
+                return;
+            }
+            
+            if (referrerEmail && !validateEmail(referrerEmail)) {
+                if (referrerError) {
+                    referrerError.textContent = 'Please enter a valid email address';
+                    referrerError.style.display = 'block';
+                }
+                if (referrerInput) {
+                    referrerInput.style.borderColor = '#ff6b6b';
+                }
+                return;
+            }
+            
+            // If validation passes, show success message
+            alert('Thank you for registering! We will contact you soon with your free tokens.');
+            
+            // Reset form
+            signupForm.reset();
+            if (emailError) emailError.style.display = 'none';
+            if (referrerError) referrerError.style.display = 'none';
+            if (emailInput) emailInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            if (referrerInput) referrerInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        });
     }
 }
 
