@@ -130,6 +130,7 @@ body {
     overflow-x: hidden;
     height: 100vh;
     width: 100%;
+    padding-bottom: 40px;
 }
 
 /* Sections */
@@ -1299,9 +1300,14 @@ body {
 
 /* Footer */
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem 0;
+    padding: 0.25rem 0;
+    z-index: 1000;
 }
 
 .footer-content {
@@ -1386,7 +1392,8 @@ body {
 
 .footer-bottom p {
     color: #b0b0b0;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    margin: 0;
 }
 
 .form-group {
