@@ -1,0 +1,14 @@
+{
+  "name": "neuralgrid-lambda",
+  "version": "1.0.0",
+  "description": "NeuralGrid Lambda function for API",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
+

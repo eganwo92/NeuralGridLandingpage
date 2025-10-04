@@ -1,67 +1,198 @@
 # NeuralGrid Landing Page
 
-A modern, AI-themed landing page with horizontal scrolling navigation and cutting-edge design elements.
+A modern, responsive landing page for NeuralGrid - an AI-powered marketplace platform.
 
 ## Features
 
-- **Horizontal Scrolling**: 5 distinct sections that can be navigated horizontally
-- **Modern AI Design**: Futuristic theme with neural network animations
-- **Responsive Layout**: Optimized for desktop, tablet, and mobile devices
-- **Interactive Elements**: Smooth animations, particle effects, and hover interactions
-- **Contact Form**: Functional contact form with validation
-- **Performance Optimized**: Efficient animations and lazy loading
+- **Responsive Design**: Works on all devices and screen sizes
+- **Interactive Animations**: Smooth scrolling and particle effects
+- **Signup Form**: Collects user information with validation
+- **Backend API**: Node.js server with MongoDB integration
+- **AWS Ready**: Complete deployment configuration for AWS
 
-## Sections
+## Quick Start
 
-1. **Home/Hero**: Introduction with animated neural network visualization
-2. **About**: Company information with statistics and floating cards
-3. **Services**: AI services showcase with detailed descriptions
-4. **Technology**: Tech stack and infrastructure highlights
-5. **Contact**: Contact information and inquiry form
+### Local Development
 
-## Technologies Used
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd neuralgrid-landingpage
+   ```
 
-- **HTML5**: Semantic markup structure
-- **CSS3**: Modern styling with gradients, animations, and responsive design
-- **JavaScript**: Interactive functionality and smooth scrolling
-- **Font Awesome**: Icon library for visual elements
-- **Google Fonts**: Inter font family for typography
+2. **For local testing, use any static server**
+   ```bash
+   # Python
+   python -m http.server 8080
+   
+   # Node.js
+   npx serve . -p 8080
+   ```
 
-## Navigation
+3. **Access the application**
+   - Frontend: http://localhost:8080
+   - Backend API: Deploy to AWS for full functionality
 
-- **Mouse/Trackpad**: Scroll horizontally or use navigation menu
-- **Keyboard**: Use left/right arrow keys to navigate sections
-- **Touch**: Swipe left/right on mobile devices
-- **Menu**: Click navigation links for direct section access
+### AWS Deployment
 
-## Browser Support
+1. **Prepare your environment**
+   - AWS CLI configured
+   - MongoDB Atlas account
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-- Mobile browsers (iOS Safari, Chrome Mobile)
+2. **Deploy to AWS S3**
+   ```bash
+   chmod +x deploy-s3.sh
+   ./deploy-s3.sh
+   ```
 
-## Getting Started
+## Project Structure
 
-1. Clone the repository
-2. Open `index.html` in your web browser
-3. Navigate through sections using horizontal scroll or navigation menu
+```
+neuralgrid-landingpage/
+├── index.html              # Main HTML file
+├── styles.css              # CSS styles
+├── script.js               # Frontend JavaScript
+├── images/                 # Image assets
+├── lambda/                 # Serverless backend API
+│   ├── index.js           # Lambda function
+│   └── package.json       # Lambda dependencies
+├── aws-s3-cloudformation-template.json # S3 infrastructure
+├── deploy-s3.sh           # S3 deployment script
+├── README.md              # Project overview
+└── S3-DEPLOYMENT.md       # Detailed S3 deployment guide
+```
 
-## Customization
+## Technology Stack
 
-- Modify colors in `styles.css` (search for color variables)
-- Update content in `index.html`
-- Adjust animations in `script.js`
-- Replace placeholder contact information
+### Frontend
+- HTML5, CSS3, JavaScript (ES6+)
+- Font Awesome icons
+- Google Fonts (Inter)
+- Responsive design with CSS Grid/Flexbox
 
-## Performance
+### Backend
+- AWS Lambda (Serverless)
+- MongoDB Atlas
+- API Gateway integration
+- Input validation and sanitization
 
-- Optimized for 60fps animations
-- Efficient particle system with automatic cleanup
-- Responsive images and lazy loading
-- Minimal external dependencies
+### Infrastructure
+- AWS S3 (Static hosting)
+- CloudFront CDN
+- Lambda + API Gateway
+- CloudFormation templates
+
+## API Endpoints
+
+### POST /api/signup
+Register a new user
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "userType": "user",
+  "category": "Programming",
+  "feedback": "Looking forward to using AI agents",
+  "referrer": "friend@example.com"
+}
+```
+
+### GET /api/health
+Health check endpoint
+
+### GET /api/stats
+Get signup statistics (admin)
+
+## Configuration
+
+### Environment Variables
+- `NODE_ENV`: Environment (production/development)
+- `PORT`: Backend server port
+- `MONGODB_URI`: MongoDB connection string
+- `FRONTEND_URL`: Frontend URL for CORS
+
+### MongoDB Schema
+```javascript
+{
+  name: String,
+  email: String (unique),
+  userType: String (user/developer),
+  category: String,
+  feedback: String,
+  referrer: String,
+  createdAt: Date,
+  ipAddress: String,
+  userAgent: String
+}
+```
+
+## Security Features
+
+- Rate limiting (10 req/s for API, 5/min for signup)
+- Input validation and sanitization
+- CORS protection
+- Security headers
+- MongoDB injection protection
+- IP tracking for analytics
+
+## Deployment Options
+
+### 1. AWS S3 + Lambda (Recommended)
+- Serverless architecture
+- Cost-effective ($5-25/month)
+- Automatic scaling
+- Global CDN with CloudFront
+
+### 2. Local Development
+- Static file serving
+- Frontend testing only
+- No backend functionality
+
+## Monitoring and Maintenance
+
+### Health Checks
+```bash
+# Check Lambda function health
+curl https://your-api-gateway-url.amazonaws.com/prod/api/health
+
+# Check signup statistics
+curl https://your-api-gateway-url.amazonaws.com/prod/api/stats
+```
+
+### Logs
+```bash
+# View Lambda logs
+aws logs tail /aws/lambda/neuralgrid-api --follow
+
+# View CloudFront logs (if enabled)
+aws s3 ls s3://your-cloudfront-logs-bucket/
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is licensed under the MIT License.
+
+## Support
+
+For issues and questions:
+1. Check the troubleshooting section in S3-DEPLOYMENT.md
+2. Review Lambda logs in CloudWatch
+3. Check AWS CloudWatch metrics
+4. Contact the development team
+
+## Roadmap
+
+- [ ] Add user authentication
+- [ ] Implement email notifications
+- [ ] Add analytics dashboard
+- [ ] Support for multiple languages
+- [ ] Mobile app integration
+- [ ] Advanced AI agent features

@@ -116,17 +116,22 @@ class NeuralGridLanding {
                 this.scrollToSection(0);
             });
         }
+
+        // Setup pricing cards horizontal scrolling
+        this.setupPricingCardsScrolling();
     }
 
     setupTouchEvents() {
         let startX = 0;
         let startY = 0;
         let isScrolling = false;
+        let touchStartTime = 0;
 
         document.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
             isScrolling = false;
+            touchStartTime = Date.now();
         });
 
         document.addEventListener('touchmove', (e) => {
@@ -141,13 +146,19 @@ class NeuralGridLanding {
         });
 
         document.addEventListener('touchend', (e) => {
-            if (isScrolling) {
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            if (isScrolling && touchDuration < 300) {
                 const endX = e.changedTouches[0].clientX;
                 const endY = e.changedTouches[0].clientY;
                 const deltaX = endX - startX;
                 const deltaY = endY - startY;
                 
-                if (Math.abs(deltaX) > 50) {
+                // Check if we're on mobile and disable horizontal scrolling
+                const isMobile = window.innerWidth <= 768;
+                
+                if (!isMobile && Math.abs(deltaX) > 50) {
                     if (deltaX > 0) {
                         this.scrollHorizontalLeft(this.currentSection);
                     } else {
@@ -162,6 +173,16 @@ class NeuralGridLanding {
                 }
             }
         });
+
+        // Prevent zoom on double tap for mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     }
 
     setupScrollSnap() {
@@ -415,8 +436,57 @@ class NeuralGridLanding {
         const navMenu = document.querySelector('.nav-menu');
         const navToggle = document.querySelector('.nav-toggle');
         
-        navMenu.classList.toggle('active');
+        navMenu.classList.toggle('mobile-active');
         navToggle.classList.toggle('active');
+        
+        // Close menu when clicking on a nav link
+        if (navMenu.classList.contains('mobile-active')) {
+            const navLinks = navMenu.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('mobile-active');
+                    navToggle.classList.remove('active');
+                });
+            });
+        }
+    }
+
+    setupPricingCardsScrolling() {
+        const pricingGrid = document.querySelector('.pricing-grid');
+        if (!pricingGrid) return;
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        pricingGrid.addEventListener('mousedown', (e) => {
+            isDown = true;
+            pricingGrid.style.cursor = 'grabbing';
+            startX = e.pageX - pricingGrid.offsetLeft;
+            scrollLeft = pricingGrid.scrollLeft;
+        });
+
+        pricingGrid.addEventListener('mouseleave', () => {
+            isDown = false;
+            pricingGrid.style.cursor = 'grab';
+        });
+
+        pricingGrid.addEventListener('mouseup', () => {
+            isDown = false;
+            pricingGrid.style.cursor = 'grab';
+        });
+
+        pricingGrid.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - pricingGrid.offsetLeft;
+            const walk = (x - startX) * 2;
+            pricingGrid.scrollLeft = scrollLeft - walk;
+        });
+
+        // Add grab cursor style
+        pricingGrid.style.cursor = 'grab';
+        pricingGrid.style.userSelect = 'none';
     }
 
     // Setup signup form with email validation
@@ -474,7 +544,7 @@ class NeuralGridLanding {
         }
 
         // Form submission
-        signupForm.addEventListener('submit', (e) => {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = new FormData(signupForm);
@@ -504,15 +574,75 @@ class NeuralGridLanding {
                 return;
             }
             
-            // If validation passes, show success message
-            alert('Thank you for registering! We will contact you soon with your free tokens.');
+            // Show loading state
+            const submitBtn = signupForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
             
-            // Reset form
-            signupForm.reset();
-            if (emailError) emailError.style.display = 'none';
-            if (referrerError) referrerError.style.display = 'none';
-            if (emailInput) emailInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-            if (referrerInput) referrerInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            try {
+                // Prepare data for API
+                const signupData = {
+                    name: formData.get('name') ? formData.get('name').trim() : '',
+                    email: email,
+                    userType: formData.get('userType') || '',
+                    category: formData.get('category') ? formData.get('category').trim() : '',
+                    feedback: formData.get('feedback') ? formData.get('feedback').trim() : '',
+                    referrer: referrerEmail || ''
+                };
+                
+                // Determine API URL based on environment
+                let apiUrl;
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    apiUrl = 'http://localhost:3000/api/signup';
+                } else if (window.location.hostname.includes('amazonaws.com') || window.location.hostname.includes('cloudfront.net') || window.location.hostname.includes('neuralgridai.io')) {
+                    // For S3/CloudFront deployment or custom domain, use API Gateway
+                    apiUrl = 'https://hzxqh4bcx8.execute-api.us-east-1.amazonaws.com/prod/signup';
+                } else {
+                    // For other deployments
+                    apiUrl = '/api/signup';
+                }
+                
+                console.log('=== SIGNUP DEBUG v4 ===');
+                console.log('Hostname:', window.location.hostname);
+                console.log('Full URL:', window.location.href);
+                console.log('Using API URL:', apiUrl);
+                console.log('===================');
+                
+                // Send data to backend
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(signupData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    // Success
+                    this.showNotification(result.message, 'success');
+                    
+                    // Reset form
+                    signupForm.reset();
+                    if (emailError) emailError.style.display = 'none';
+                    if (referrerError) referrerError.style.display = 'none';
+                    if (emailInput) emailInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    if (referrerInput) referrerInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                } else {
+                    // Error from server
+                    this.showNotification(result.message || 'Registration failed. Please try again.', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Signup error:', error);
+                this.showNotification('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
     }
 }
