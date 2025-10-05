@@ -10,6 +10,7 @@ class NeuralGridLanding {
         this.horizontalContainers = document.querySelectorAll('.horizontal-scroll-container');
         this.horizontalNavLeft = document.querySelectorAll('.horizontal-nav-left');
         this.horizontalNavRight = document.querySelectorAll('.horizontal-nav-right');
+        this.navMenu = document.querySelector('.nav-menu');
         this.isScrolling = false;
         this.scrollTimeout = null;
         
@@ -23,6 +24,7 @@ class NeuralGridLanding {
         this.setupAnimations();
         this.updateArrowVisibility();
         this.setupSignupForm();
+        this.setupMobileNavigation();
     }
 
     setupEventListeners() {
@@ -103,11 +105,6 @@ class NeuralGridLanding {
             contactForm.addEventListener('submit', this.handleFormSubmit.bind(this));
         }
 
-        // Mobile menu toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        if (navToggle) {
-            navToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
-        }
 
         // Return to top button
         const returnToTopBtn = document.querySelector('.return-to-top-btn');
@@ -250,6 +247,9 @@ class NeuralGridLanding {
                 behavior: 'smooth'
             });
             
+            // Reset arrow states immediately
+            this.resetArrowStates();
+            
             // Update arrow visibility after scroll
             setTimeout(() => {
                 this.updateArrowVisibility();
@@ -270,11 +270,13 @@ class NeuralGridLanding {
                 behavior: 'smooth'
             });
             
+            // Reset arrow states immediately
+            this.resetArrowStates();
+            
             // Update arrow visibility after scroll
             setTimeout(() => {
                 this.updateArrowVisibility();
             }, 300);
-        } else {
         }
     }
 
@@ -338,6 +340,23 @@ class NeuralGridLanding {
         }
     }
 
+    resetArrowStates() {
+        this.horizontalNavLeft.forEach(arrow => {
+            if (arrow) {
+                arrow.style.background = 'rgba(0, 0, 0, 0.6)';
+                arrow.style.color = '#32ff7e';
+                arrow.style.transform = 'scale(1)';
+            }
+        });
+        
+        this.horizontalNavRight.forEach(arrow => {
+            if (arrow) {
+                arrow.style.background = 'rgba(0, 0, 0, 0.6)';
+                arrow.style.color = '#32ff7e';
+                arrow.style.transform = 'scale(1)';
+            }
+        });
+    }
 
     updateActiveNavLink() {
         console.log(`Updating nav links, current section: ${this.currentSection}`);
@@ -432,25 +451,6 @@ class NeuralGridLanding {
         }, 3000);
     }
 
-    toggleMobileMenu() {
-        const navMenu = document.querySelector('.nav-menu');
-        const navToggle = document.querySelector('.nav-toggle');
-        
-        navMenu.classList.toggle('mobile-active');
-        navToggle.classList.toggle('active');
-        
-        // Close menu when clicking on a nav link
-        if (navMenu.classList.contains('mobile-active')) {
-            const navLinks = navMenu.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('mobile-active');
-                    navToggle.classList.remove('active');
-                });
-            });
-        }
-    }
-
     setupPricingCardsScrolling() {
         const pricingGrid = document.querySelector('.pricing-grid');
         if (!pricingGrid) return;
@@ -498,6 +498,9 @@ class NeuralGridLanding {
         const referrerError = document.getElementById('referrerError');
 
         if (!signupForm) return;
+
+        // Setup custom dropdown
+        this.setupCustomDropdown();
 
         // Email validation function
         const validateEmail = (email) => {
@@ -645,6 +648,166 @@ class NeuralGridLanding {
             }
         });
     }
+
+    setupCustomDropdown() {
+        const dropdown = document.getElementById('userTypeDropdown');
+        const selected = document.getElementById('userTypeSelected');
+        const options = document.getElementById('userTypeOptions');
+        const hiddenInput = document.getElementById('userType');
+
+        if (!dropdown || !selected || !options || !hiddenInput) return;
+
+        // Toggle dropdown - handle both click and touch events
+        const toggleDropdown = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            const isActive = dropdown.classList.contains('active');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.custom-dropdown').forEach(dd => {
+                dd.classList.remove('active');
+                const ddSelected = dd.querySelector('.dropdown-selected');
+                const ddOptions = dd.querySelector('.dropdown-options');
+                if (ddSelected) ddSelected.classList.remove('active');
+                if (ddOptions) ddOptions.classList.remove('active');
+            });
+            
+            // Toggle current dropdown
+            if (!isActive) {
+                dropdown.classList.add('active');
+                selected.classList.add('active');
+                options.classList.add('active');
+            } else {
+                dropdown.classList.remove('active');
+                selected.classList.remove('active');
+                options.classList.remove('active');
+            }
+        };
+
+        // Add multiple event listeners for better mobile support
+        selected.addEventListener('click', toggleDropdown, { passive: false });
+        selected.addEventListener('touchstart', toggleDropdown, { passive: false });
+        selected.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
+
+        // Handle option selection - handle both click and touch events
+        const handleOptionSelection = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            if (e.target.classList.contains('dropdown-option')) {
+                const value = e.target.getAttribute('data-value');
+                const text = e.target.textContent;
+                
+                // Update selected text
+                selected.querySelector('span').textContent = text;
+                
+                // Update hidden input
+                hiddenInput.value = value;
+                
+                // Update option selection
+                options.querySelectorAll('.dropdown-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+                
+                // Close dropdown
+                dropdown.classList.remove('active');
+                selected.classList.remove('active');
+                options.classList.remove('active');
+            }
+        };
+
+        // Add multiple event listeners for better mobile support
+        options.addEventListener('click', handleOptionSelection, { passive: false });
+        options.addEventListener('touchstart', handleOptionSelection, { passive: false });
+        options.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
+
+        // Close dropdown when clicking outside - handle both click and touch events
+        const closeDropdown = (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+                selected.classList.remove('active');
+                options.classList.remove('active');
+            }
+        };
+
+        document.addEventListener('click', closeDropdown, { passive: true });
+        document.addEventListener('touchstart', closeDropdown, { passive: true });
+    }
+
+    setupMobileNavigation() {
+        const mobileNavDropdown = document.querySelector('.mobile-nav-dropdown');
+        const mobileNavSelected = document.getElementById('mobileNavSelected');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        const mobileNavOptions = mobileNavMenu.querySelectorAll('.mobile-nav-option');
+
+        if (!mobileNavDropdown || !mobileNavSelected || !mobileNavMenu) {
+            console.log('Mobile navigation elements not found');
+            return;
+        }
+
+        // Toggle mobile menu
+        mobileNavSelected.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            mobileNavMenu.classList.toggle('active');
+            mobileNavSelected.classList.toggle('active');
+            
+            console.log('Mobile menu toggled. Active class:', mobileNavMenu.classList.contains('active'));
+            console.log('Mobile menu options count:', mobileNavOptions.length);
+            mobileNavOptions.forEach((option, index) => {
+                console.log(`Option ${index}:`, option.textContent.trim());
+            });
+        });
+
+        // Handle option selection
+        mobileNavOptions.forEach((option) => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const sectionIndex = parseInt(option.getAttribute('data-section'));
+                const optionText = option.querySelector('span').textContent;
+                
+                // Update selected text
+                mobileNavSelected.querySelector('span').textContent = optionText;
+                
+                // Close mobile menu
+                mobileNavMenu.classList.remove('active');
+                mobileNavSelected.classList.remove('active');
+                
+                // Navigate to section
+                this.scrollToSection(sectionIndex);
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileNavDropdown.contains(e.target) && !mobileNavMenu.contains(e.target)) {
+                mobileNavMenu.classList.remove('active');
+                mobileNavSelected.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu on touch outside (mobile)
+        document.addEventListener('touchstart', (e) => {
+            if (!mobileNavDropdown.contains(e.target) && !mobileNavMenu.contains(e.target)) {
+                mobileNavMenu.classList.remove('active');
+                mobileNavSelected.classList.remove('active');
+            }
+        }, { passive: true });
+    }
+
 }
 
 // Particle system for background effects
